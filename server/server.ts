@@ -1,5 +1,6 @@
 import express, {Request, Response} from "express";
 import readBuilds from "./src/readBuilds";
+import getResultBuild, {BuildResult} from "./src/getResultBuild";
 
 const app = express();
 const port = 3000;
@@ -23,8 +24,15 @@ app.get('/', function (req, res) {
     actionGetListBuilds(req, res);
 });
 
-app.get('/build/:buildId', function (req, res) {
-    actionNotFound(res);
+app.get('/build/:buildId', function (req: Request, res) {
+    getResultBuild(parseInt(req.params.buildId)).then((buildResult: BuildResult) => {
+        res.end(`
+<div>id: ${buildResult.id}</div>
+<div>repository: ${buildResult.repository}</div>
+<div>commit_hash: ${buildResult.commit_hash}</div>
+<div>result: ${buildResult.result}</div>
+`);
+    });
 });
 
 app.get('/notify_agent', function (req, res) {
