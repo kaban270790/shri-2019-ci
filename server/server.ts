@@ -15,7 +15,6 @@ const actionGetListBuilds = (req: Request, res: Response) => {
         });
         res.end(result);
     }).catch(reason => {
-        console.log(reason);
         res.status(500).end(reason);
     });
 };
