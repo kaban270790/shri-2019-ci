@@ -8,9 +8,17 @@
 
 GET http://{{host}}:{{port}}/
 
+> {% client.test("Is completed", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
 ###
 
 GET http://{{host}}:{{port}}/build/1
+
+> {% client.test("Is completed", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
 
 ###
 
@@ -23,5 +31,9 @@ Content-Type: application/json
   "stdout": "",
   "stderr": ""
 }
+
+> {% client.test("Is completed", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
 
 ###
