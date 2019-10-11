@@ -19,7 +19,6 @@ type Agent = {
 };
 
 let agents: Agent[] = [];
-let agentHashList: string[] = [];
 
 const actionGetListBuilds = (req: Request, res: Response) => {
     readBuilds().then(builds => {
@@ -52,14 +51,34 @@ app.get('/build/:buildId', function (req: Request, res) {
 
 app.use(bodyParser.json());
 
+const findAgent = (secretKey: string): number => {
+    for (let i = 0, l = agents.length; i < l; i++) {
+        if (agents[i].secretKey === secretKey) {
+            return i;
+        }
+    }
+    return -1;
+};
+
 app.post('/notify_agent', function (req, res) {
     let agent: Agent = req.body;
     agent.secretKey = md5(`${agent.protocol}://${agent.host}:${agent.port}`);
-    if (agentHashList.indexOf(agent.secretKey) >= 0) {
+    const agentIndex = findAgent(agent.secretKey);
+    if (agentIndex >= 0) {
         res.status(400).json({result: false, error: "Agent has exist"});
     } else {
         agents.push(agent);
-        agentHashList.push(agent.secretKey);
+        res.json({result: true, secretKey: agent.secretKey});
+    }
+});
+
+app.post('/disable_notify_agent', function (req, res) {
+    let agent: Agent = req.body;
+    const agentIndex = findAgent(agent.secretKey);
+    if (agentIndex === -1) {
+        res.status(400).json({result: false, error: "Agent not found"});
+    } else {
+        agents.splice(agentIndex, 1);
         res.json({result: true});
     }
 });
