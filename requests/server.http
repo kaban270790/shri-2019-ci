@@ -6,7 +6,7 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://{{host}}:{{port}}/
+GET http://{{server_host}}:{{server_port}}/
 
 > {% client.test("Is completed", function() {
   client.assert(response.status === 200, "Response status is not 200");
@@ -14,7 +14,7 @@ GET http://{{host}}:{{port}}/
 
 ###
 
-GET http://{{host}}:{{port}}/build/1
+GET http://{{server_host}}:{{server_port}}/build/1
 
 > {% client.test("Is completed", function() {
   client.assert(response.status === 200, "Response status is not 200");
@@ -22,7 +22,7 @@ GET http://{{host}}:{{port}}/build/1
 
 ###
 
-POST http://{{host}}:{{port}}/notify_build_result
+POST http://{{server_host}}:{{server_port}}/notify_build_result
 Content-Type: application/json
 
 {
@@ -38,7 +38,22 @@ Content-Type: application/json
 
 ###
 
-POST http://{{host}}:{{port}}/notify_agent
+POST http://{{server_host}}:{{server_port}}/notify_agent
+Content-Type: application/json
+
+{
+  "port": 3000,
+  "stdout": "localhost",
+  "protocol": "http"
+}
+
+> {% client.test("Is completed", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
+###
+
+POST http://{{agent_host}}:{{agent_port}}/build
 Content-Type: application/json
 
 {

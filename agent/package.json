@@ -1,0 +1,26 @@
+{
+ "name": "agent",
+ "version": "1.0.0",
+ "description": "",
+ "main": "index.js",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "ts-node index.js"
+ },
+ "keywords": [],
+ "author": "",
+ "license": "ISC",
+ "dependencies": {
+  "@babel/core": "^7.6.3",
+  "@babel/preset-env": "^7.2.0",
+  "@babel/register": "^7.6.2",
+  "express": "^4.17.1",
+  "typescript": "^3.6.4",
+  "request": "latest"
+ },
+ "devDependencies": {
+  "@types/express": "^4.17.1",
+  "@types/node": "^12.7.12",
+  "@types/request": "^2.48.3"
+ }
+}
