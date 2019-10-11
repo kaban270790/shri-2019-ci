@@ -37,3 +37,18 @@ Content-Type: application/json
 });%}
 
 ###
+
+POST http://{{host}}:{{port}}/notify_agent
+Content-Type: application/json
+
+{
+  "port": 3000,
+  "stdout": "localhost",
+  "protocol": "http"
+}
+
+> {% client.test("Is completed", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
+###
