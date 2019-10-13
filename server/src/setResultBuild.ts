@@ -1,6 +1,7 @@
 import {resolve as pathResolve} from 'path';
 import {readFile, writeFile} from 'fs';
 import {Builder as XmlBuilder, parseString} from 'xml2js';
+import {BuildResultType} from "./build";
 
 export type BuildResult = {
     id: number,
@@ -16,7 +17,9 @@ export type BuildResultJson = {
     id: number,
     status: number,
     stdout?: string,
-    stderr?: string
+    stderr?: string,
+    timeEnd?: number,
+    timeStart?: number,
 };
 
 const setBuildResult = (buildDir: string, buildResult: BuildResultJson) => {
@@ -26,10 +29,12 @@ const setBuildResult = (buildDir: string, buildResult: BuildResultJson) => {
             if (err) {
                 reject(err);
             }
-            parseString(data.toString(), {explicitArray: false, explicitRoot: false}, (err, xml: BuildResult) => {
+            parseString(data.toString(), {explicitArray: false, explicitRoot: false}, (err, xml: BuildResultType) => {
                 if (err) {
                     reject(err);
                 }
+                xml.timeEnd = buildResult.timeEnd;
+                xml.timeStart = buildResult.timeStart;
                 xml.result = buildResult.status;
                 xml.stdout = buildResult.stdout;
                 xml.stderr = buildResult.stderr;

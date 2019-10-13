@@ -12,7 +12,9 @@ export type BuildResultType = {
     result: number,
     command?: string,
     stdout?: string,
-    stderr?: string
+    stderr?: string,
+    timeStart?: number,
+    timeEnd?: number
 };
 const DIR_RESULTS = pathResolve(__dirname, '..', 'data_base', 'results',);
 const FILENAME_DATA = 'data.xml';

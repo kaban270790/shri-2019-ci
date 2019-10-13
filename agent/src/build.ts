@@ -21,7 +21,14 @@ export type BuildResultType = {
     stderr?: string
 };
 
-type ResultData = { id: number, status: number, stdout: string, stderr?: string };
+type ResultData = {
+    id: number,
+    status: number,
+    stdout: string,
+    stderr?: string,
+    timeStart?: number,
+    timeEnd?: number,
+};
 
 const sendResult = (data: ResultData) => {
     data.stdout = Base64.toBase64(data.stdout || '');
@@ -53,11 +60,12 @@ const createBuild = (build: BuildResultType) => {
     return (new Promise<ResultData>((resolve) => {
             const cwd = pathResolve(TMP_BUILD_DIR, build.id.toString());
             mkdirSync(cwd);
-            let result = {
+            let result: ResultData = {
                 id: build.id,
                 status: 0,
                 stdout: '',
-                stderr: ''
+                stderr: '',
+                timeStart: Date.now(),
             };
             let commands = build.command.split("\n");
             commands.unshift(`git checkout ${build.commit_hash}`);
@@ -88,9 +96,11 @@ const createBuild = (build: BuildResultType) => {
 
             promiseExec.catch((stderr) => {
                 result.stderr = stderr;
+                result.timeEnd = Date.now();
                 resolve(result);
             });
             promiseExec.then((result) => {
+                result.timeEnd = Date.now();
                 resolve(result);
             });
             promiseExec.then(() => {
