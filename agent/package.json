@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node index.js"
+    "dev": "ts-node index.js --port=3006 --server_port=3005 --server_host=localhost --server_protocol=http"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "request": "latest",
     "typescript": "^3.6.4",
-    "js-base64": "^2.5.1"
+    "js-base64": "^2.5.1",
+    "yargs": "^14.2.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.1",

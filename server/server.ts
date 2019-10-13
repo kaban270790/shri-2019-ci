@@ -9,8 +9,10 @@ import agentDisableController from './src/controllers/agent/disable';
 import agentResultController from './src/controllers/agent/result';
 import agentBuildController from './src/controllers/agent/build';
 
+const {argv} = require('yargs');
+
 const app = express();
-const port = 3000;
+const port = argv.port || 3000;
 
 app.use(bodyParser.json());
 

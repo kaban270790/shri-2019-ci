@@ -3,9 +3,9 @@ import {Server} from "http";
 import request from "request";
 import bodyParser from "body-parser";
 import addToQueue, {BuildResultType} from "./src/build";
+import {port, server_url} from "./src/params";
 
 const app = express();
-const port = 3001;
 let secretKey: string | undefined;
 let server: Server;
 
@@ -25,7 +25,7 @@ type ResponseDisableNotifyAgent = {
 const sendSigOpen = () => {
     request({
         method: 'POST',
-        url: 'http://localhost:3000/notify_agent', //todo из параметров
+        url: `${server_url}/notify_agent`, //todo из параметров
         json: {
             host: 'localhost',
             port: port,
@@ -47,7 +47,7 @@ const sendSigClose = () => {
     }
     request({
         method: 'POST',
-        url: 'http://localhost:3000/disable_notify_agent', //todo из параметров
+        url: `${server_url}/disable_notify_agent`, //todo из параметров
         json: {secretKey}
     }, (error, response) => {
         if (error) {
