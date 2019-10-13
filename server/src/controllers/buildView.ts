@@ -11,8 +11,8 @@ export default function (req: Request, res: Response) {
 <div>id: ${buildResult.id}</div>
 <div>repository: ${buildResult.repository}</div>
 <div>commit_hash: ${buildResult.commit_hash}</div>
-<div>start: ${moment(buildResult.timeStart ? (buildResult.timeStart * 1000) : '').format('lll')}</div>
-<div>end: ${moment(buildResult.timeEnd ? (buildResult.timeEnd * 1000) : '').format('lll')}</div>
+<div>start: ${moment(buildResult.timeStart ? parseInt(buildResult.timeStart.toString()) : '').format('MMMM Do YYYY, h:mm:ss a')}</div>
+<div>end: ${moment(buildResult.timeEnd ? parseInt(buildResult.timeEnd.toString()) : '').format('MMMM Do YYYY, h:mm:ss a')}</div>
 <div>commit_hash: ${buildResult.commit_hash}</div>
 <div>result: ${buildResult.result}</div>
 <div>Command:<br><textarea readonly style="width: 100%; min-height: 200px;">${buildResult.command}</textarea></div>
