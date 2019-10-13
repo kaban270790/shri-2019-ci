@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node index.js --port=3006 --server_port=3005 --server_host=localhost --server_protocol=http"
+    "start": "ts-node index.js --port=3006 --server_port=3005 --server_host=localhost --server_protocol=http"
   },
   "keywords": [],
   "author": "",
