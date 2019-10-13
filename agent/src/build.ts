@@ -77,18 +77,14 @@ const createBuild = (build: BuildResultType) => {
             promiseExec.then((result) => {
                 for (let i = 0, l = commands.length; i < l; i++) {
                     let command = commands[i];
-                    let commandArray = command.split(" ");
-                    const file = commandArray.shift() || '';
-                    if (file.length > 0) {//todo надо изучить make и уйти от этой х-ни
-                        let {stderr, stdout, status} = spawnSync(file, commandArray, {cwd});
-                        let stdoutCommand = `\nCommand: ${command}\n`;
-                        if (status && status > 0) {
-                            result.status = status;
-                            result.stderr = (stdoutCommand + stderr);
-                            break;
-                        } else {
-                            result.stdout += (stdoutCommand + stdout);
-                        }
+                    let {stderr, stdout, status} = spawnSync(command, [], {cwd, shell: true});
+                    let stdoutCommand = `\nCommand: \n ${command}\n\n`;
+                    if (status && status > 0) {
+                        result.status = status;
+                        result.stderr = (stdoutCommand + stderr);
+                        break;
+                    } else {
+                        result.stdout += (stdoutCommand + stdout);
                     }
                 }
                 return result;
