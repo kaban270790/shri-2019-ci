@@ -14,7 +14,7 @@ export type BuildResult = {
 
 export type BuildResultJson = {
     id: number,
-    result: number,
+    status: number,
     stdout?: string,
     stderr?: string
 };
@@ -30,7 +30,7 @@ const setBuildResult = (buildDir: string, buildResult: BuildResultJson) => {
                 if (err) {
                     reject(err);
                 }
-                xml.result = buildResult.result;
+                xml.result = buildResult.status;
                 xml.stdout = buildResult.stdout;
                 xml.stderr = buildResult.stderr;
                 const builder = new XmlBuilder();
