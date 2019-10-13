@@ -1,5 +1,5 @@
 import request from "request";
-import {mkdirSync} from "fs";
+import {mkdirSync, rmdirSync} from "fs";
 import {resolve as pathResolve} from "path";
 import {spawnSync,} from "child_process";
 import {Base64} from "js-base64";
@@ -92,6 +92,10 @@ const createBuild = (build: BuildResultType) => {
             });
             promiseExec.then((result) => {
                 resolve(result);
+            });
+            promiseExec.then(() => {
+                // @ts-ignore
+                rmdirSync(cwd, {recursive: true});
             });
         }
     ));
