@@ -35,7 +35,6 @@ const setBuildResult = (buildDir: string, buildResult: BuildResultJson) => {
                 xml.stderr = buildResult.stderr;
                 const builder = new XmlBuilder();
                 const xmlToStr = builder.buildObject(xml);
-                console.log(xmlToStr);
                 writeFile(pathResultFile, xmlToStr, (err) => {
                     if (err) {
                         reject(err);

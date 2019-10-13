@@ -2,6 +2,7 @@ import request from "request";
 import {mkdirSync} from "fs";
 import {resolve as pathResolve} from "path";
 import {spawnSync,} from "child_process";
+import {Base64} from "js-base64";
 
 let promiseQueue = (new Promise((resolve) => {
     resolve()
@@ -22,7 +23,8 @@ export type BuildResultType = {
 type ResultData = { id: number, status: number, stdout: string, stderr?: string };
 
 const sendResult = (data: ResultData) => {
-    console.log(data);
+    data.stdout = Base64.toBase64(data.stdout || '');
+    data.stderr = Base64.toBase64(data.stderr || '');
     request({
         method: 'POST',
         url: 'http://localhost:3000/notify_build_result', //todo из параметров

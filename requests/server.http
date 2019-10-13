@@ -60,17 +60,18 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 Content-Disposition: form-data; name="repository"
 Content-Type: text/plain
 
-git@github.com:kaban270790/lifehacker.git
+git@github.com:kaban270790/yndx-shri-task_2.git
 --WebAppBoundary
 Content-Disposition: form-data; name="commit_hash"
 Content-Type: text/plain
 
-d6458a7f5f4d26edc88c14f8100eaa7cd37e352b
+d6f5a8a0832f85fb6974289c792785636aba10bb
 --WebAppBoundary
 Content-Disposition: form-data; name="command"
 Content-Type: text/plain
 
-echo "hello world!!";
+npm install
+npm run test
 --WebAppBoundary
 
 > {% client.test("Is completed", function() {

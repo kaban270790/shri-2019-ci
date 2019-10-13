@@ -31,9 +31,11 @@
     "md5": "latest",
     "multer": "latest",
     "request": "latest",
-    "random-js": "latest"
+    "random-js": "latest",
+    "js-base64": "latest"
   },
   "devDependencies": {
+    "@types/js-base64": "^2.3.1",
     "@types/md5": "^2.1.33",
     "@types/multer": "^1.3.10",
     "@types/request": "^2.48.3"

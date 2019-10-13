@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import getResultBuild, {BuildResult} from "../getResultBuild";
+import {Base64} from "js-base64";
 
 export default function (req: Request, res: Response) {
     getResultBuild(parseInt(req.params.buildId)).then((buildResult: BuildResult) => {
@@ -9,6 +10,9 @@ export default function (req: Request, res: Response) {
 <div>repository: ${buildResult.repository}</div>
 <div>commit_hash: ${buildResult.commit_hash}</div>
 <div>result: ${buildResult.result}</div>
+<div>Command:<br><textarea readonly style="width: 100%; min-height: 200px;">${buildResult.command}</textarea></div>
+<div>Stdout:<br><textarea readonly style="width: 100%; min-height: 300px;">${Base64.fromBase64(buildResult.stdout || '')}</textarea></div>
+<div>Stderr:<br><textarea readonly style="width: 100%; min-height: 300px;">${Base64.fromBase64(buildResult.stderr || '')}</textarea></div>
 `);
     });
 }
