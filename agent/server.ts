@@ -2,7 +2,7 @@ import express, {Response} from "express";
 import {Server} from "http";
 import request from "request";
 import bodyParser from "body-parser";
-import Signals = NodeJS.Signals;
+import addToQueue, {BuildResultType} from "./src/build";
 
 const app = express();
 const port = 3001;
@@ -77,6 +77,14 @@ const sendSigClose = () => {
 app.use(bodyParser.json());
 
 app.post('/build', function (req, res) {
+    let build: BuildResultType = {
+        id: parseInt(req.body.id),
+        command: req.body.command,
+        repository: req.body.repository,
+        commit_hash: req.body.commit_hash,
+        result: 0
+    };
+    addToQueue(build);
     res.json({result: true});
 });
 
