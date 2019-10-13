@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import multer from "multer";
 import indexController from './src/controllers/index';
 import notFoundController from './src/controllers/notFound';
 import buildViewController from './src/controllers/buildView';
@@ -13,9 +14,15 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+const upload = multer();
+
 app.get('/', indexController);
 
-app.post('/build', agentBuildController);
+app.post('/build', upload.fields([
+    {name: 'repository'},
+    {name: 'commit_hash'},
+    {name: 'command'},
+]), agentBuildController);
 
 app.get('/build/:buildId', buildViewController);
 

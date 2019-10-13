@@ -53,6 +53,33 @@ Content-Type: application/json
 
 ###
 
+POST http://{{server_host}}:{{server_port}}/build
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="repository"
+Content-Type: text/plain
+
+Name
+--WebAppBoundary
+Content-Disposition: form-data; name="commit_hash"
+Content-Type: text/plain
+
+Second
+--WebAppBoundary
+Content-Disposition: form-data; name="command"
+Content-Type: text/plain
+
+asdasd
+sfsdf
+--WebAppBoundary
+
+> {% client.test("Is completed", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
+###
+
 POST http://{{agent_host}}:{{agent_port}}/build
 Content-Type: application/json
 

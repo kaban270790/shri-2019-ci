@@ -1,6 +1,7 @@
 import express, {Response} from "express";
 import {Server} from "http";
 import request from "request";
+import bodyParser from "body-parser";
 import Signals = NodeJS.Signals;
 
 const app = express();
@@ -72,6 +73,8 @@ const sendSigClose = () => {
         server.close();
     });
 };
+
+app.use(bodyParser.json());
 
 app.post('/build', function (req, res) {
     res.json({result: true});

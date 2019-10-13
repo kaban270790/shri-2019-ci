@@ -3,7 +3,7 @@ import readBuilds from "../readBuilds";
 
 // noinspection HtmlUnknownTarget
 const formBuild = `
-<form action="/build" method="POST">
+<form action="/build" enctype="multipart/form-data" method="POST">
 <div>
     <label>
         Repository: <input required name="repository" placeholder="repository">
@@ -16,7 +16,7 @@ const formBuild = `
 </div>
 <div>
     <label>
-        Run command: <textarea></textarea>
+        Run command: <textarea name="command"></textarea>
     </label>
 </div>
 <button type="submit">Submit</button>
