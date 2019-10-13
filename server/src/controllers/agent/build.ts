@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {BuildResultType, RESULTS, save as saveBuild, sendToAgent} from "../../build";
+import {BuildResultType, save as saveBuild, sendToAgent} from "../../build";
 
 
 export default function (req: Request, res: Response) {
@@ -7,7 +7,7 @@ export default function (req: Request, res: Response) {
         repository: req.body['repository'] || '',
         commit_hash: req.body['commit_hash'] || '',
         command: req.body['command'] || '',
-        result: RESULTS.created
+        result: -1
     };
     saveBuild(build)
         .then((build: BuildResultType) => {

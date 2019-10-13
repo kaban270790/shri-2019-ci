@@ -4,20 +4,12 @@ import {Builder as XmlBuilder} from "xml2js";
 import request from "request";
 import {getAgent} from "./agents";
 
-export const enum RESULTS {
-    'created' = 0,
-    'send to task' = 1,
-    'error sending to task' = 2,
-    'in work' = 5,
-    'completed without errors' = 10,
-    'completed with an error' = 11
-}
 
 export type BuildResultType = {
     id?: number,
     repository: string,
     commit_hash: string,
-    result: RESULTS,
+    result: number,
     command?: string,
     stdout?: string,
     stderr?: string
@@ -71,14 +63,13 @@ export function sendToAgent(build: BuildResultType) {
             url: `${agent.protocol}://${agent.host}:${agent.port}/build`,
             json: build
         }, (error, response) => {
+            build.result = -1;
             if (error || response.body.result === false) {
-                build.result = RESULTS['error sending to task'];
                 update(build).then(() => {
                     console.error(error.toString());
                     reject(error || "Error sending to task");
                 });
             }
-            build.result = RESULTS['send to task'];
             update(build).then(build => {
                 resolve(build);
             });
