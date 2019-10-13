@@ -9,20 +9,6 @@ const port = 3001;
 let secretKey: string | undefined;
 let server: Server;
 
-// fixme
-////////////////////////////////////////////////////
-// let s: Signals[] = ["SIGABRT", "SIGALRM", "SIGBUS", "SIGCHLD", "SIGCONT", "SIGFPE", "SIGHUP", "SIGILL", "SIGINT", "SIGIO",
-//     "SIGIOT", "SIGKILL", "SIGPIPE", "SIGPOLL", "SIGPROF", "SIGPWR", "SIGQUIT", "SIGSEGV", "SIGSTKFLT",
-//     "SIGSTOP", "SIGSYS", "SIGTERM", "SIGTRAP", "SIGTSTP", "SIGTTIN", "SIGTTOU", "SIGUNUSED", "SIGURG",
-//     "SIGUSR1", "SIGUSR2", "SIGVTALRM", "SIGWINCH", "SIGXCPU", "SIGXFSZ", "SIGBREAK", "SIGLOST", "SIGINFO"];
-//
-// s.forEach((value: Signals) => {
-//     process.on(value, () => {
-//         console.log(value);
-//     });
-// });
-////////////////////////////////////////////////////
-
 const actionNotFound = (res: Response) => {
     res.status(404).send('Not found!');
 };
