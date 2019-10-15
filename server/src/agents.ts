@@ -1,7 +1,4 @@
 import md5 from "md5";
-import {Random} from "random-js";
-
-const random = new Random();
 
 export type AgentType = {
     host: string,
@@ -42,13 +39,19 @@ export const randSecret = (agent: AgentType): string => {
     return md5(`${agent.protocol}://${agent.host}:${agent.port}`);
 };
 
-export function getAgent(): AgentType {
+let agentIndex: number;
+
+export function getAgent() {
     if (agents.length === 0) {
         throw new Error("Agents not found");
     }
-    if (agents.length > 1) {
-        return agents[random.integer(0, agents.length - 1)]
+    if (agentIndex === undefined) {
+        agentIndex = 0;
     } else {
-        return agents[0];
+        agentIndex++;
+        if (!agents[agentIndex]) {
+            agentIndex = 0;
+        }
     }
+    return agents[agentIndex];
 }
